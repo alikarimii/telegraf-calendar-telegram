@@ -18,7 +18,7 @@ Installation
 ---------------
 
 ```
-npm i telegraf-calendar-telegram --save
+npm i telegraf-persian-calendar-telegram --save
 ```
 
 Basic usage
