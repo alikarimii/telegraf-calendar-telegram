@@ -23,18 +23,15 @@ npm i telegraf-persian-calendar-telegram --save
 
 Basic usage
 ---------------
+first add your bot token at ./bot/index.js
 ```javascript
 // create the bot
 const bot = new Telegraf('your bot token');
-// instantiate the calendar
-const calendar = new Calendar(bot);
-
-// listen for the selected date event
-calendar.setDateListener((context, date) => context.reply(date));
-// retreive the calendar HTML
-bot.command("calendar", context => context.reply("Here you are", calendar.getCalendar()));
 ```
-
+then
+```
+npm start
+```
 This creates a calendar with the default options: you will have an english calendar with Sunday as starting week day.
 
 Customization
