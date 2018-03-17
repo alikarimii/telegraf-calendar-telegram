@@ -5,13 +5,13 @@
 	"author": {
 		"name": "alikarimi",
 		"email": "alikarimi20200@gmail.com",
-		"url": "https://github.com/alikarimi20200"
+		"url": "https://github.com/alikarimii"
 	},
 	"license": "Apache-2.0",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/alikarimi20200/telegraf-calendar-telegram"
+		"url": "https://github.com/alikarimii/telegraf-calendar-telegram"
 	},
 	"scripts": {
 		"start": "nodemon ./bot/index.js",
