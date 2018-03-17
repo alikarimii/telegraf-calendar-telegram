@@ -32,7 +32,7 @@ class CalendarHelper {
 
 	addHeader(page, m, date) {
 		let monthName = this.options.monthNames[date.jMonth()];
-		let year = date.jYear('jYY');
+		let year = date.format('jYY');
 
 		let header = [];
 
