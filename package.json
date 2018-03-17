@@ -1,29 +1,36 @@
 {
-	"name": "telegraf-calendar-telegram",
-	"version": "1.5.2",
+	"name": "telegraf-persian-calendar-telegram",
+	"version": "1.0.0",
 	"description": "Inline calendar for Telegram bots using Telegraf framework",
 	"author": {
-		"name": "gianlucaparadise",
-		"email": "gianlucaparadise@gmail.com",
-		"url": "https://github.com/gianlucaparadise"
+		"name": "alikarimi",
+		"email": "alikarimi20200@gmail.com",
+		"url": "https://github.com/alikarimi20200"
 	},
 	"license": "Apache-2.0",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gianlucaparadise/telegraf-calendar-telegram"
+		"url": "https://github.com/alikarimi20200/telegraf-calendar-telegram"
 	},
 	"scripts": {
-		"start": "pm2 start ./bin/www --name telegraf-calendar-telegram",
+		"start": "nodemon ./bot/index.js",
+		"start-pm2": "pm2 start ./bin/www --name telegraf-calendar-telegram",
 		"restart": "pm2 restart telegraf-calendar-telegram"
 	},
 	"keywords": [
 		"telegram",
 		"bot",
 		"telegraf",
-		"calendar"
+		"calendar",
+		"telegraf persian calendar",
+		"persian calendar telegram",
+		"persian calendar"
 	],
 	"dependencies": {
+		"moment-jalaali": "^0.7.2",
+		"nodemon": "^1.17.2",
+		"pm2": "^2.10.1",
 		"telegraf": "^3.6.7"
 	},
 	"devDependencies": {

@@ -1,3 +1,7 @@
+# For Persian Calendar
+thanks a lot from [gianlucaparadise](https://github.com/gianlucaparadise).
+i use [moment-jalaali](https://github.com/jalaali/moment-jalaali) as persian calendar.
+but this version of telegraf-persian-calender have some bug ,but work.
 # telegraf-calendar-telegram
 Inline calendar for Telegram bots using Telegraf framework.
 You can test it using this [bot](t.me/CalendarTelegrafBot.).
@@ -21,7 +25,7 @@ Basic usage
 ---------------
 ```javascript
 // create the bot
-const bot = new Telegraf(process.env.CALENDAR_BOT_TOKEN);
+const bot = new Telegraf('your bot token');
 // instantiate the calendar
 const calendar = new Calendar(bot);
 
@@ -39,11 +43,11 @@ When you instantiate the calendar, you can pass an option object:
 
 ```javascript
 const calendar = new Calendar(bot, {
-	startWeekDay: 1,
-	weekDayNames: ["L", "M", "M", "G", "V", "S", "D"],
+	startWeekDay: 0,
+	weekDayNames: ["یک", "دو", "سه", "چهار", "پنج", "جمعه", "ش"],
 	monthNames: [
-		"Gen", "Feb", "Mar", "Apr", "Mag", "Giu",
-		"Lug", "Ago", "Set", "Ott", "Nov", "Dic"
+		"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
+		"مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
 	]
 });
 ```

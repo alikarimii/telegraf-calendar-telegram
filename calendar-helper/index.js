@@ -1,4 +1,5 @@
 const Extra = require('telegraf').Extra;
+var moment = require('moment-jalaali');
 
 class CalendarHelper {
 	constructor(options) {
@@ -16,6 +17,7 @@ class CalendarHelper {
 
 	getCalendarMarkup(date) {
 		return Extra.HTML().markup((m) => {
+		
 			return m.inlineKeyboard(this.getPage(m, date));
 		});
 	}
@@ -29,8 +31,8 @@ class CalendarHelper {
 	}
 
 	addHeader(page, m, date) {
-		let monthName = this.options.monthNames[date.getMonth()];
-		let year = date.getFullYear();
+		let monthName = this.options.monthNames[date.jMonth()];
+		let year = date.jYear('jYY');
 
 		let header = [];
 
@@ -39,7 +41,7 @@ class CalendarHelper {
 			header.push(m.callbackButton(" ", "calendar-telegram-ignore"));
 		}
 		else {
-			header.push(m.callbackButton("<", "calendar-telegram-prev-" + CalendarHelper.toYyyymmdd(date)));
+			header.push(m.callbackButton("<", "calendar-telegram-prev-" + date.format()));
 		}
 
 		header.push(m.callbackButton(monthName + " " + year, "calendar-telegram-ignore"));
@@ -49,7 +51,7 @@ class CalendarHelper {
 			header.push(m.callbackButton(" ", "calendar-telegram-ignore"));
 		}
 		else {
-			header.push(m.callbackButton(">", "calendar-telegram-next-" + CalendarHelper.toYyyymmdd(date)));
+			header.push(m.callbackButton(">", "calendar-telegram-next-" + date.format()));
 		}
 
 		page.push(header);
@@ -58,21 +60,24 @@ class CalendarHelper {
 	}
 
 	addDays(page, m, date) {
-		let maxMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+		let maxMonthDay = moment.jDaysInMonth(date.jYear(), date.jMonth());
+	
 		let maxDay = this.getMaxDay(date);
+
 		let minDay = this.getMinDay(date);
 
 		let currentRow = new Array(7).fill(m.callbackButton(" ", "calendar-telegram-ignore"));
 		for (var d = 1; d <= maxMonthDay; d++) {
-			date.setDate(d);
-
-			let weekDay = this.normalizeWeekDay(date.getDay());
+			date.jDate(d);
+			let weekDay = this.normalizeWeekDay(date.day());
 			//currentRow[weekDay] = CalendarHelper.toYyyymmdd(date);
 			if (d < minDay || d > maxDay) {
 				currentRow[weekDay] = m.callbackButton(CalendarHelper.strikethroughText(d.toString()), "calendar-telegram-ignore");
 			}
 			else {
-				currentRow[weekDay] = m.callbackButton(d.toString(), "calendar-telegram-date-" + CalendarHelper.toYyyymmdd(date));
+				//console.log(date);
+				currentRow[weekDay] = m.callbackButton(d.toString(), "calendar-telegram-date-" + date.format('jYYYY-jMM-jDD'));
 			}
 
 			if (weekDay == 6 || d == maxMonthDay) {
@@ -105,7 +110,7 @@ class CalendarHelper {
 	getMinDay(date) {
 		let minDay;
 		if (this.isInMinMonth(date)) {
-			minDay = this.options.minDate.getDate();
+			minDay = this.options.minDate.date();
 		}
 		else {
 			minDay = 1;
@@ -124,21 +129,21 @@ class CalendarHelper {
 	getMaxDay(date) {
 		let maxDay;
 		if (this.isInMaxMonth(date)) {
-			maxDay = this.options.maxDate.getDate();
+			maxDay = this.options.maxDate.date();
 		}
 		else {
-			maxDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+			maxDay = moment.jDaysInMonth(date.jYear(), date.jMonth());
 		}
 
 		return maxDay;
 	}
 
 	static toYyyymmdd(date) {
-		let mm = date.getMonth() + 1; // getMonth() is zero-based
-		let dd = date.getDate();
+		let mm = date.jMonth() + 1; // getMonth() is zero-based
+		let dd = date.jDate();
 
 		return [
-			date.getFullYear(),
+			date.jYear(),
 			(mm > 9 ? '' : '0') + mm,
 			(dd > 9 ? '' : '0') + dd
 		].join('-');
@@ -169,9 +174,9 @@ class CalendarHelper {
 	static isSameMonth(myDate, testDate) {
 		if (!myDate) return false;
 
-		testDate = testDate || new Date();
+		testDate = testDate || moment();
 
-		return myDate.getFullYear() === testDate.getFullYear() && myDate.getMonth() === testDate.getMonth();
+		return myDate.jYear() === testDate.jYear() && myDate.jMonth() === testDate.jMonth();
 	}
 
 	/**
